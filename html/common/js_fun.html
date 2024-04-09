@@ -1,0 +1,70 @@
+<script>
+
+	//로딩 오버레이를 표시하는 함수
+	function showLoadingOverlay() {
+	  document.querySelector('.loading-overlay').style.display = 'flex';
+	}
+	
+	// 로딩 오버레이를 숨기는 함수
+	function hideLoadingOverlay() {
+	  document.querySelector('.loading-overlay').style.display = 'none';
+	}
+	var isEmpty = function isEmpty(value){ 
+	    if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+	        return true 
+	    }else{ 
+	        return false 
+	    } 
+	};	
+
+	toastr.options = {
+		"closeButton": false,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-center",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "100",
+		"hideDuration": "5000",
+		"timeOut": "3500",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+
+
+    function alertShow(str, type = 1, href=""){
+		/* 
+    	toastr.options = {
+			"positionClass": "toast-center-center"
+		}; 
+		*/
+    	
+ 		var select_toastr = toastr.error;
+    	if(!type || type == 1){
+    		select_toastr = toastr.error;
+    	}else if(type == 2){
+    		select_toastr = toastr.warning
+    	}else if(type == 3){
+    		select_toastr = toastr.success;
+    	}else if(type == 4){
+    		select_toastr = toastr.info;
+    	}else if(type == 5){
+	    	toastr.options = {
+				"positionClass": "toast-top-center"
+			};     		
+    	}
+
+    	select_toastr("<br>"+str,"<div style='background-color: #fff; text-align : center;' ><b style='color : red; font-size : 18px;'>notification</b><div>");	
+		setTimeout(function(){			
+			if(href != ""){
+				document.location.href=href;
+			}
+		}, 3000);
+
+    }
+
+</script>
