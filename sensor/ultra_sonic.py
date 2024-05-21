@@ -1,5 +1,5 @@
 
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import time
 import threading
 import asyncio
@@ -28,8 +28,8 @@ class UltrasonicSensor:
         GPIO.setup(self.red_led_pin, GPIO.OUT)
         GPIO.setup(self.yellow_led_pin, GPIO.OUT)
         GPIO.setup(self.green_led_pin, GPIO.OUT)
-        
-    
+
+
 
     def get_distance(self):
         GPIO.output(self.trigger_pin, False)
@@ -86,26 +86,4 @@ class UltrasonicSensor:
             t.join()
         GPIO.cleanup()
 
-class TestSonic:
-    def __init__(self):
-        self.is_running = False
-
-    def get_distance(self):
-        return random.randint(0,100)
-
-    async def emit_distance(self, sio, sid):
-        while True:
-            distance = self.get_distance()
-            await sio.emit('distance_data', {'distance': distance})
-            print('Distance data sent:', distance)
-            await asyncio.sleep(10)
-
-    async def start_sensors(self, sio, sid):
-        self.is_running = True
-        loop = asyncio.get_event_loop()
-        loop.create_task(self.emit_distance(sio, sid))
-
-
-    def stop_sensors(self):
-        self.is_running = False
 

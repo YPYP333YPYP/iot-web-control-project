@@ -20,7 +20,7 @@ SETTING['SECRET_KEY'] = secrets.token_bytes(32)
 # 세션 미들웨어 설정
 setup(app, EncryptedCookieStorage(SETTING['SECRET_KEY'], cookie_name=SETTING['COOKIE_NAME']))
 
-host_ip = '192.168.137.99'
+host_ip = 'localhost'
 port = 5000
 
 async def web_server():

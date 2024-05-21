@@ -20,8 +20,6 @@ index.html
     <script src="static/lib/js/jquery-ui.min.js"></script>
     <script src="static/lib/js/toastr.min.js"></script>
     <script src="static/lib/js/konva.js"></script>
-    <script src="static/user/js/sonic.js" defer></script>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <link rel="stylesheet"
@@ -69,46 +67,34 @@ index.html
 
                     <!-- Tab Menu End-->
 
-                                       <div id="myTabContent" class="tab-content col-md-12">
-
-                                           <div class="tab-pane fade active in" id="Setting">
-
-                                               <div class="tab-content col-md-12"
-                                                    style="border-top: 1px solid #80808069; padding-top: 10px;">
-
-                                                   <div class="content-row">
-                                                       <h1>Ultrasonic Sensor Data</h1>
-                                                       <p id="distance"></p>
-
-                                                   </div>
-                                                   <div id="chart"></div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-
                     <div id="myTabContent" class="tab-content col-md-12">
-                        <div class="tab-pane fade active in" id="Switch">
-                            <div class="tab-content col-md-12" style="border-top: 1px solid
-#80808069; padding-top: 10px;">
-                                <div class="content-row">
-                                    <div class="col-md-12">
-                                        <!-- Switch Button -->
-                                        <input type="checkbox" class="rgb-3color-led-switch">
-                                    </div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <!-- row -->
-                                </div>
-                                <!-- content-row -->
-                            </div>
-                            <!--tab-content-->
-                        </div>
 
-                          <script>
+                        <div class="tab-pane fade active in" id="Setting">
+
+                            <div class="tab-content col-md-12"
+                                 style="border-top: 1px solid #80808069; padding-top: 10px;">
+
+                                <div class="content-row">
+                                    <h1>Ultrasonic Sensor Data</h1>
+                                    <p id="distance"></p>
+
+                                </div>
+                                <div id="chart"></div>
+                            </div>
+                            <div>
+                                   <h1>DHT 센서 데이터</h1>
+                                    <p>온도: <span id="temperature"></span>°C</p>
+                                    <p>습도: <span id="humidity"></span>%</p>
+                                    <p>릴레이 상태: <span id="relay-status"></span></p>
+                                    <button id="relay-on-btn">릴레이 ON</button>
+                                    <button id="relay-off-btn">릴레이 OFF</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <script>
                         $(function () {
                             $('.rgb-3color-led-switch').bootstrapSwitch();
                         });
@@ -116,412 +102,412 @@ index.html
                     </script>
 
 
-                        <!-- 세팅 -->
+                    <!-- 세팅 -->
 
 
-                        <!-- Parking_lot -->
-                        <div class="tab-pane fade " id="Parking_lot">
-                            <div class="tab-content col-md-12"
-                                 style="border-top: 1px solid #80808069; padding-top: 10px;">
+                    <!-- Parking_lot -->
+                    <div class="tab-pane fade " id="Parking_lot">
+                        <div class="tab-content col-md-12"
+                             style="border-top: 1px solid #80808069; padding-top: 10px;">
 
-                                <div class="content-row">
+                            <div class="content-row">
 
-                                    <div class="row">
-                                        <div class="col-md-6 area-canvas-container">
-                                            <div class="checkboxes-container">
-                                                <label class="checkbox-label "> <input
-                                                        type="checkbox" class="show_enble_area">
-                                                    <h4 style="display: inline;">&nbsp;Show Enble Area</h4>
-                                                </label> <label class="checkbox-label all_edit_div"
-                                                                style="display: none;"> <input type="checkbox"
-                                                                                               class="all_edit">
-                                                <h4 class="all_edit_label" style="display: inline;">&nbsp;Enble
-                                                    Area Edit</h4>
-                                                <button type="button" class="btn btn-info btn-all-edite">Edit
-                                                    All Area
-                                                </button>
-                                            </label>
-                                            </div>
-
-                                            <div id="area-canvas"
-                                                 style="margin: 0 auto; display: block; width: 640px;"></div>
+                                <div class="row">
+                                    <div class="col-md-6 area-canvas-container">
+                                        <div class="checkboxes-container">
+                                            <label class="checkbox-label "> <input
+                                                    type="checkbox" class="show_enble_area">
+                                                <h4 style="display: inline;">&nbsp;Show Enble Area</h4>
+                                            </label> <label class="checkbox-label all_edit_div"
+                                                            style="display: none;"> <input type="checkbox"
+                                                                                           class="all_edit">
+                                            <h4 class="all_edit_label" style="display: inline;">&nbsp;Enble
+                                                Area Edit</h4>
+                                            <button type="button" class="btn btn-info btn-all-edite">Edit
+                                                All Area
+                                            </button>
+                                        </label>
                                         </div>
-                                        <div class="col-md-6 canvas-controll">
-                                            <table class="table no-border">
-                                                <tr>
-                                                    <td class="vertical-center" style="width: 300px;">
-                                                        <div class="checkbox" class="checkbox-label">
-                                                            <label>
-                                                                <h4 style="display: inline;">DETECTION</h4>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="vertical-center"><label
-                                                            class="checkbox-label"> <input type="checkbox"
-                                                                                           class="area-enable">
-                                                        <h4 style="display: inline;">&nbsp;ENABLE</h4>
-                                                    </label></td>
-                                                </tr>
-                                                <!--
-                                                <tr>
-                                                    <td>Detection Sensibility( 0 ~ 10 )</td>
-                                                    <td>
-                                                        <div id="dtc_snsb_slider" style="width: 70%;"></div>
-                                                        <input type="text" id="dtc_snsb" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                                    </td>
-                                                </tr>
-                                                 -->
 
-                                                <tr class="hide">
-                                                    <td>Occupancy Time( 0 ~ 10 )</td>
-                                                    <td>
-                                                        <div id="occ_time_slider" style="width: 70%;"></div>
-                                                        <input
-                                                                type="text" id="occ_time" readonly
-                                                                style="border: 0; color: #f6931f; font-weight: bold;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><h4>AREA</h4></td>
-                                                    <td>
-                                                        <div class="form-inline">
-                                                            <button type="button" class="btn btn-info btn-add"
-                                                                    data-value="1">ADD
-                                                            </button>
-                                                            <button type="button" class="btn btn-info btn-apply"
-                                                                    data-value="1">APPLY
-                                                            </button>
-                                                            <!--  서번 -> setarea, db -> camera_area -->
-                                                            <button type="button" class="btn btn-info btn-save"
-                                                                    data-value="1">SAVE
-                                                            </button>
-                                                            <button type="button" class="btn btn-info btn-reset"
-                                                                    data-value="1">RESET
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Area Name</td>
-                                                    <td><input placeholder="A~Z"
-                                                               class="form-control areaName areaInput" type="text"
-                                                               style="max-width: 250px;"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Planned Spaces</td>
-                                                    <td><input placeholder="1~"
-                                                               class="form-control plannedSpaces areaInput" type="text"
-                                                               style="max-width: 250px;"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Distribution</td>
-                                                    <td>
-                                                        <div class="btn-group orientation" role="group"
-                                                             aria-label="Orientation">
-                                                            <button type="button" class="btn btn-default">Horizontal
-                                                            </button>
-                                                            <button type="button" class="btn btn-default">Vertical
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Numbering Scheme</td>
-                                                    <td>
-                                                        <div class="inline-element btn-group numbering"
-                                                             role="group" aria-label="Numbering">
-                                                            <button type="button" class="btn btn-default">Increase
-                                                            </button>
-                                                            <button type="button" class="btn btn-default">Decrease
-                                                            </button>
-                                                        </div>
-                                                        <span class="inline-element">From</span> <input
-                                                            placeholder="1~"
-                                                            class="form-control inline-element numberingStart areaInput"
-                                                            type="text" style="max-width: 50px;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Area Type</td>
-                                                    <td>
-                                                        <div class="btn-group area-type" role="group"
-                                                             aria-label="AreaType">
-                                                            <button type="button" class="btn btn-default">General
-                                                            </button>
-                                                            <button type="button" class="btn btn-default">Electriciy
-                                                            </button>
-                                                            <button type="button" class="btn btn-default">Disabled
-                                                            </button>
-                                                            <button type="button" class="btn btn-default">Women</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
+                                        <div id="area-canvas"
+                                             style="margin: 0 auto; display: block; width: 640px;"></div>
                                     </div>
-
-                                    <div class="row"></div>
-
-
-                                    <div class="row">
-
-                                        <table id="areaTable"
-                                               class="table table-striped table-bordered"
-                                               style="width: 100%">
-                                            <thead>
+                                    <div class="col-md-6 canvas-controll">
+                                        <table class="table no-border">
                                             <tr>
-                                                <th style="width: 50px">No.</th>
-                                                <th>DETECTION<br>STATUS
-                                                </th>
-                                                <th>Area Name</th>
-                                                <th>Planned Spaces</th>
-                                                <th>Distribution</th>
-                                                <th>Numbering Scheme</th>
-                                                <th>Area Type</th>
-                                                <th>Action</th>
+                                                <td class="vertical-center" style="width: 300px;">
+                                                    <div class="checkbox" class="checkbox-label">
+                                                        <label>
+                                                            <h4 style="display: inline;">DETECTION</h4>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="vertical-center"><label
+                                                        class="checkbox-label"> <input type="checkbox"
+                                                                                       class="area-enable">
+                                                    <h4 style="display: inline;">&nbsp;ENABLE</h4>
+                                                </label></td>
                                             </tr>
-                                            </thead>
-                                            <!--  //static/js/polygontest.js getArea() 함수 호출-->
-                                            <tbody>
-                                            </tbody>
+                                            <!--
+                                            <tr>
+                                                <td>Detection Sensibility( 0 ~ 10 )</td>
+                                                <td>
+                                                    <div id="dtc_snsb_slider" style="width: 70%;"></div>
+                                                    <input type="text" id="dtc_snsb" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                                </td>
+                                            </tr>
+                                             -->
+
+                                            <tr class="hide">
+                                                <td>Occupancy Time( 0 ~ 10 )</td>
+                                                <td>
+                                                    <div id="occ_time_slider" style="width: 70%;"></div>
+                                                    <input
+                                                            type="text" id="occ_time" readonly
+                                                            style="border: 0; color: #f6931f; font-weight: bold;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4>AREA</h4></td>
+                                                <td>
+                                                    <div class="form-inline">
+                                                        <button type="button" class="btn btn-info btn-add"
+                                                                data-value="1">ADD
+                                                        </button>
+                                                        <button type="button" class="btn btn-info btn-apply"
+                                                                data-value="1">APPLY
+                                                        </button>
+                                                        <!--  서번 -> setarea, db -> camera_area -->
+                                                        <button type="button" class="btn btn-info btn-save"
+                                                                data-value="1">SAVE
+                                                        </button>
+                                                        <button type="button" class="btn btn-info btn-reset"
+                                                                data-value="1">RESET
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Area Name</td>
+                                                <td><input placeholder="A~Z"
+                                                           class="form-control areaName areaInput" type="text"
+                                                           style="max-width: 250px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Planned Spaces</td>
+                                                <td><input placeholder="1~"
+                                                           class="form-control plannedSpaces areaInput" type="text"
+                                                           style="max-width: 250px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Distribution</td>
+                                                <td>
+                                                    <div class="btn-group orientation" role="group"
+                                                         aria-label="Orientation">
+                                                        <button type="button" class="btn btn-default">Horizontal
+                                                        </button>
+                                                        <button type="button" class="btn btn-default">Vertical
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Numbering Scheme</td>
+                                                <td>
+                                                    <div class="inline-element btn-group numbering"
+                                                         role="group" aria-label="Numbering">
+                                                        <button type="button" class="btn btn-default">Increase
+                                                        </button>
+                                                        <button type="button" class="btn btn-default">Decrease
+                                                        </button>
+                                                    </div>
+                                                    <span class="inline-element">From</span> <input
+                                                        placeholder="1~"
+                                                        class="form-control inline-element numberingStart areaInput"
+                                                        type="text" style="max-width: 50px;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Area Type</td>
+                                                <td>
+                                                    <div class="btn-group area-type" role="group"
+                                                         aria-label="AreaType">
+                                                        <button type="button" class="btn btn-default">General
+                                                        </button>
+                                                        <button type="button" class="btn btn-default">Electriciy
+                                                        </button>
+                                                        <button type="button" class="btn btn-default">Disabled
+                                                        </button>
+                                                        <button type="button" class="btn btn-default">Women</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
                                         </table>
-                                        <div id="pagination-container"
-                                             class="dataTables_paginate paging_bootstrap">
-                                            <!-- 페이지 버튼이 생성될 컨테이너 -->
-                                        </div>
-
-
                                     </div>
+                                </div>
+
+                                <div class="row"></div>
+
+
+                                <div class="row">
+
+                                    <table id="areaTable"
+                                           class="table table-striped table-bordered"
+                                           style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 50px">No.</th>
+                                            <th>DETECTION<br>STATUS
+                                            </th>
+                                            <th>Area Name</th>
+                                            <th>Planned Spaces</th>
+                                            <th>Distribution</th>
+                                            <th>Numbering Scheme</th>
+                                            <th>Area Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <!--  //static/js/polygontest.js getArea() 함수 호출-->
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div id="pagination-container"
+                                         class="dataTables_paginate paging_bootstrap">
+                                        <!-- 페이지 버튼이 생성될 컨테이너 -->
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
-                        <!-- Parking_lot end-->
-
-
-                        <!-- Event -->
-                        <!-- Event Tab Content -->
-                        <div class="tab-pane fade" id="Event">
-                            <div class="tab-content col-md-12"
-                                 style="border-top: 1px solid #80808069; padding-top: 10px;">
-                                <div class="content-row">
-                                    <div class="row">
-                                        <!-- Event 1 -->
-                                        <div class="col-md-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    EVENT 1
-                                                    <div class="pull-right">
-                                                        <input type="checkbox" class="event1-enable"
-                                                               name="event1-enable"> <label
-                                                            for="event1-enable">ENABLE</label>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <!-- Form starts here -->
-                                                    <form class="eventForm event1-form" data-value="1">
-                                                        <div class="form-group">
-                                                            <label for="event1-url">URL</label> <input type="text"
-                                                                                                       class="form-control input-lg event1-url"
-                                                                                                       placeholder="URL">
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event1-protocol">PROTOCOL</label> <select
-                                                                class="form-control input-lg event1-protocol">
-                                                            <option value="HTTPS">HTTPS</option>
-                                                            <option value="HTTP">HTTP</option>
-                                                            <option value="FTP">TCP</option>
-                                                            <!-- 다른 프로토콜 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event1-method">METHOD</label> <select
-                                                                class="form-control input-lg event1-method">
-                                                            <option value="POST">POST</option>
-                                                            <option value="GET">GET</option>
-                                                            <!-- 다른 HTTP 메서드 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event1-snapshot">SNAPSHOT (Only
-                                                                POST)</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event1-snapshot-enable"
-                                                                       name="event1-snapshot-enable"> <label
-                                                                    for="event1-snapshot-enable">ENABLE</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event1-periodic">PERIODIC EVENT</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event1-periodic-enable"
-                                                                       name="event1-periodic-enable"> <label
-                                                                    for="event1-periodic-enable">ENABLE</label>
-                                                            </div>
-                                                            <input type="text"
-                                                                   class="form-control input-lg event1-period"
-                                                                   placeholder="Period in seconds">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </form>
-                                                    <!-- Form ends here -->
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Event 2 -->
-                                        <div class="col-md-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    EVENT 2
-                                                    <div class="pull-right">
-                                                        <input type="checkbox" class="event2-enable"
-                                                               name="event2-enable"> <label
-                                                            for="event2-enable">ENABLE</label>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <!-- Form starts here -->
-                                                    <form class="eventForm event2-form" data-value="2">
-                                                        <div class="form-group">
-                                                            <label for="event2-url">URL</label> <input type="text"
-                                                                                                       class="form-control input-lg event2-url"
-                                                                                                       placeholder="URL">
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event2-protocol">PROTOCOL</label> <select
-                                                                class="form-control input-lg event2-protocol">
-                                                            <option value="HTTPS">HTTPS</option>
-                                                            <option value="HTTP">HTTP</option>
-                                                            <option value="FTP">TCP</option>
-                                                            <!-- 다른 프로토콜 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event2-method">METHOD</label> <select
-                                                                class="form-control input-lg event2-method">
-                                                            <option value="POST">POST</option>
-                                                            <option value="GET">GET</option>
-                                                            <!-- 다른 HTTP 메서드 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event2-snapshot">SNAPSHOT (Only
-                                                                POST)</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event2-snapshot-enable"
-                                                                       name="event2-snapshot-enable"> <label
-                                                                    for="event2-snapshot-enable">ENABLE</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event2-periodic">PERIODIC EVENT</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event2-periodic-enable"
-                                                                       name="event2-periodic-enable"> <label
-                                                                    for="event2-periodic-enable">ENABLE</label>
-                                                            </div>
-                                                            <input type="text"
-                                                                   class="form-control input-lg event2-period"
-                                                                   placeholder="Period in seconds">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </form>
-                                                    <!-- Form ends here -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Event 2 end -->
-
-                                        <!-- Event 3 -->
-                                        <div class="col-md-4">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    EVENT 3
-                                                    <div class="pull-right">
-                                                        <input type="checkbox" class="event3-enable"
-                                                               name="event3-enable"> <label
-                                                            for="event3-enable">ENABLE</label>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <!-- Form starts here -->
-                                                    <form class="eventForm event3-form" data-value="3">
-                                                        <div class="form-group">
-                                                            <label for="event3-url">URL</label> <input type="text"
-                                                                                                       class="form-control input-lg event3-url"
-                                                                                                       placeholder="URL">
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event3-protocol">PROTOCOL</label> <select
-                                                                class="form-control input-lg event3-protocol">
-                                                            <option value="HTTPS">HTTPS</option>
-                                                            <option value="HTTP">HTTP</option>
-
-                                                            <option value="FTP">TCP</option>
-                                                            <!-- 다른 프로토콜 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group hide">
-                                                            <label for="event3-method">METHOD</label> <select
-                                                                class="form-control input-lg event3-method">
-                                                            <option value="POST">POST</option>
-                                                            <option value="GET">GET</option>
-
-                                                            <!-- 다른 HTTP 메서드 옵션들 추가 -->
-                                                        </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event3-snapshot">SNAPSHOT (Only
-                                                                POST)</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event3-snapshot-enable"
-                                                                       name="event3-snapshot-enable"> <label
-                                                                    for="event3-snapshot-enable">ENABLE</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="event3-periodic">PERIODIC EVENT</label>
-                                                            <div class="pull-right">
-                                                                <input type="checkbox" class="event3-periodic-enable"
-                                                                       name="event3-periodic-enable"> <label
-                                                                    for="event3-periodic-enable">ENABLE</label>
-                                                            </div>
-                                                            <input type="text"
-                                                                   class="form-control input-lg event3-period"
-                                                                   placeholder="Period in seconds">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </form>
-                                                    <!-- Form ends here -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Event 3 end -->
-                                    </div>
-                                    <!-- row end-->
-                                </div>
-                                <!-- content-row end-->
-                            </div>
-                            <!-- tab-content col-md-12 end -->
-                        </div>
-                        <!-- Event end-->
-
                     </div>
-                    <!-- myTabContent end -->
+                    <!-- Parking_lot end-->
+
+
+                    <!-- Event -->
+                    <!-- Event Tab Content -->
+                    <div class="tab-pane fade" id="Event">
+                        <div class="tab-content col-md-12"
+                             style="border-top: 1px solid #80808069; padding-top: 10px;">
+                            <div class="content-row">
+                                <div class="row">
+                                    <!-- Event 1 -->
+                                    <div class="col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                EVENT 1
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="event1-enable"
+                                                           name="event1-enable"> <label
+                                                        for="event1-enable">ENABLE</label>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <!-- Form starts here -->
+                                                <form class="eventForm event1-form" data-value="1">
+                                                    <div class="form-group">
+                                                        <label for="event1-url">URL</label> <input type="text"
+                                                                                                   class="form-control input-lg event1-url"
+                                                                                                   placeholder="URL">
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event1-protocol">PROTOCOL</label> <select
+                                                            class="form-control input-lg event1-protocol">
+                                                        <option value="HTTPS">HTTPS</option>
+                                                        <option value="HTTP">HTTP</option>
+                                                        <option value="FTP">TCP</option>
+                                                        <!-- 다른 프로토콜 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event1-method">METHOD</label> <select
+                                                            class="form-control input-lg event1-method">
+                                                        <option value="POST">POST</option>
+                                                        <option value="GET">GET</option>
+                                                        <!-- 다른 HTTP 메서드 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event1-snapshot">SNAPSHOT (Only
+                                                            POST)</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event1-snapshot-enable"
+                                                                   name="event1-snapshot-enable"> <label
+                                                                for="event1-snapshot-enable">ENABLE</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event1-periodic">PERIODIC EVENT</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event1-periodic-enable"
+                                                                   name="event1-periodic-enable"> <label
+                                                                for="event1-periodic-enable">ENABLE</label>
+                                                        </div>
+                                                        <input type="text"
+                                                               class="form-control input-lg event1-period"
+                                                               placeholder="Period in seconds">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                                <!-- Form ends here -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Event 2 -->
+                                    <div class="col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                EVENT 2
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="event2-enable"
+                                                           name="event2-enable"> <label
+                                                        for="event2-enable">ENABLE</label>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <!-- Form starts here -->
+                                                <form class="eventForm event2-form" data-value="2">
+                                                    <div class="form-group">
+                                                        <label for="event2-url">URL</label> <input type="text"
+                                                                                                   class="form-control input-lg event2-url"
+                                                                                                   placeholder="URL">
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event2-protocol">PROTOCOL</label> <select
+                                                            class="form-control input-lg event2-protocol">
+                                                        <option value="HTTPS">HTTPS</option>
+                                                        <option value="HTTP">HTTP</option>
+                                                        <option value="FTP">TCP</option>
+                                                        <!-- 다른 프로토콜 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event2-method">METHOD</label> <select
+                                                            class="form-control input-lg event2-method">
+                                                        <option value="POST">POST</option>
+                                                        <option value="GET">GET</option>
+                                                        <!-- 다른 HTTP 메서드 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event2-snapshot">SNAPSHOT (Only
+                                                            POST)</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event2-snapshot-enable"
+                                                                   name="event2-snapshot-enable"> <label
+                                                                for="event2-snapshot-enable">ENABLE</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event2-periodic">PERIODIC EVENT</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event2-periodic-enable"
+                                                                   name="event2-periodic-enable"> <label
+                                                                for="event2-periodic-enable">ENABLE</label>
+                                                        </div>
+                                                        <input type="text"
+                                                               class="form-control input-lg event2-period"
+                                                               placeholder="Period in seconds">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                                <!-- Form ends here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Event 2 end -->
+
+                                    <!-- Event 3 -->
+                                    <div class="col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                EVENT 3
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="event3-enable"
+                                                           name="event3-enable"> <label
+                                                        for="event3-enable">ENABLE</label>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <!-- Form starts here -->
+                                                <form class="eventForm event3-form" data-value="3">
+                                                    <div class="form-group">
+                                                        <label for="event3-url">URL</label> <input type="text"
+                                                                                                   class="form-control input-lg event3-url"
+                                                                                                   placeholder="URL">
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event3-protocol">PROTOCOL</label> <select
+                                                            class="form-control input-lg event3-protocol">
+                                                        <option value="HTTPS">HTTPS</option>
+                                                        <option value="HTTP">HTTP</option>
+
+                                                        <option value="FTP">TCP</option>
+                                                        <!-- 다른 프로토콜 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group hide">
+                                                        <label for="event3-method">METHOD</label> <select
+                                                            class="form-control input-lg event3-method">
+                                                        <option value="POST">POST</option>
+                                                        <option value="GET">GET</option>
+
+                                                        <!-- 다른 HTTP 메서드 옵션들 추가 -->
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event3-snapshot">SNAPSHOT (Only
+                                                            POST)</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event3-snapshot-enable"
+                                                                   name="event3-snapshot-enable"> <label
+                                                                for="event3-snapshot-enable">ENABLE</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event3-periodic">PERIODIC EVENT</label>
+                                                        <div class="pull-right">
+                                                            <input type="checkbox" class="event3-periodic-enable"
+                                                                   name="event3-periodic-enable"> <label
+                                                                for="event3-periodic-enable">ENABLE</label>
+                                                        </div>
+                                                        <input type="text"
+                                                               class="form-control input-lg event3-period"
+                                                               placeholder="Period in seconds">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                                <!-- Form ends here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Event 3 end -->
+                                </div>
+                                <!-- row end-->
+                            </div>
+                            <!-- content-row end-->
+                        </div>
+                        <!-- tab-content col-md-12 end -->
+                    </div>
+                    <!-- Event end-->
 
                 </div>
-                <!-- panel body end-->
+                <!-- myTabContent end -->
+
             </div>
-            <!-- panel panel-default end -->
+            <!-- panel body end-->
         </div>
-        <!-- content -->
+        <!-- panel panel-default end -->
     </div>
+    <!-- content -->
+</div>
 </div>
 <!-- 3단중 중단(사이드 메뉴와 본문) end -->
 
@@ -574,38 +560,62 @@ index.html
 
     let data = [];
     let currentTime = 0;
+
     function updateChart(newData) {
-  data.push({time: currentTime, distance: newData.distance});
-  currentTime += 10; // 10초마다 새로운 데이터 추가
+        data.push({time: currentTime, distance: newData.distance});
+        currentTime += 10; // 10초마다 새로운 데이터 추가
 
-  const maxTime = d3.max(data, d => d.time);
-  x.domain([0, maxTime]); // x축 범위를 0부터 maxTime까지로 설정
+        const maxTime = d3.max(data, d => d.time);
+        x.domain([0, maxTime]); // x축 범위를 0부터 maxTime까지로 설정
 
-  y.domain([0, d3.max(data, d => d.distance)]); // 데이터의 최대값으로 y축 범위 설정
+        y.domain([0, d3.max(data, d => d.distance)]); // 데이터의 최대값으로 y축 범위 설정
 
-  const line = d3.line()
-    .x(d => x(d.time))
-    .y(d => y(d.distance));
+        const line = d3.line()
+            .x(d => x(d.time))
+            .y(d => y(d.distance));
 
-  svg.selectAll(".line")
-    .data([data])
-    .join("path")
-    .attr("class", "line")
-    .attr("d", line)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue");
+        svg.selectAll(".line")
+            .data([data])
+            .join("path")
+            .attr("class", "line")
+            .attr("d", line)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue");
 
-  xAxis.call(d3.axisBottom(x));
-  yAxis.call(d3.axisLeft(y));
-}
+        xAxis.call(d3.axisBottom(x));
+        yAxis.call(d3.axisLeft(y));
+    }
 
     // 초기 업데이트 실행
     updateChart({distance: 0});
 
+    function updateRelayStatus(temperature, humidity) {
+        const relayStatusSpan = document.getElementById('relay-status');
+        const properTmp = 30;
+        const properHumid = 70;
+
+        if (temperature >= properTmp || humidity >= properHumid) {
+            relayStatusSpan.textContent = 'ON';
+        } else {
+            relayStatusSpan.textContent = 'OFF';
+        }
+    }
+
+    const relayOnBtn = document.getElementById('relay-on-btn');
+    const relayOffBtn = document.getElementById('relay-off-btn');
+
+    relayOnBtn.addEventListener('click', () => {
+        socket.emit('relay_control', { action: 'on' });
+    });
+
+    relayOffBtn.addEventListener('click', () => {
+        socket.emit('relay_control', { action: 'off' });
+    });
 
 </script>
 <script src="static/lib/js/socket.io-3.0.1.min.js"></script>
 <script>
+
 
     $(function () {
         //소켓아이오 js
@@ -629,10 +639,18 @@ index.html
             updateChart(data)
         });
 
-		socket.on('item', (data) => {
-			console.log(data);
-			
-		})
+        socket.on('item', (data) => {
+            console.log(data);
+
+        });
+
+        socket.on('sensor_data', (data) => {
+            const temperatureSpan = document.getElementById('temperature');
+            const humiditySpan = document.getElementById('humidity');
+            temperatureSpan.textContent = data.temperature.toFixed(1);
+            humiditySpan.textContent = data.humidity.toFixed(1);
+            updateRelayStatus(data.temperature, data.humidity);
+        });
     });
 
 </script>
@@ -644,9 +662,5 @@ index.html
 <script type="text/javascript" src="static/lib/js/dataTables.bootstrap.min.js"></script>
 <script src="static/user/js/system_info.js?var={{rand}}"></script>
 <script src="static/user/js/3color_led_switch.js?var={{rand}}"></script>
-
-<script>
-    alertShow('');
-</script>
 
 </html>
