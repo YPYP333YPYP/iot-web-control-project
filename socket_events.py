@@ -1,14 +1,21 @@
 from common import get_system_info, sio  # common.py에서 get_system_info 함수, sio 변수를 가져옵니다.
 from sensor.gpio_3_color_led import start_rgb_3color_leds, stop_rgb_3color_leds, rgb_3color_leds_state
+from sensor.ultra_sonic import TestSonic, UltrasonicSensor, item_data
 
+testsonic = TestSonic()
+ultrasonic = UltrasonicSensor(23,24,11,17,18, "1")
 
 @sio.event
 async def connect(sid, environ):
-    print('클라이언트 연결', sid)
+    print("클라이언트 연결", sid)
+    await ultrasonic.start_sensors(sio, sid)
+    # await testsonic.start_sensors(sio,sid)
 
 @sio.event
 async def disconnect(sid):
     print('클라이언트 종료', sid)
+    ultrasonic.stop_sensors()
+    # testsonic.stop_sensors()
 
 @sio.on('get_system_info')
 async def on_get_system_info(sid, data):
