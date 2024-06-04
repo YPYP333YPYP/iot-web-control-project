@@ -1,5 +1,5 @@
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 import threading
 import asyncio
@@ -50,12 +50,13 @@ class UltrasonicSensor:
         GPIO.output(self.red_led_pin, GPIO.LOW)
         GPIO.output(self.yellow_led_pin, GPIO.LOW)
         GPIO.output(self.green_led_pin, GPIO.LOW)
-        if distance < 100:
-            GPIO.output(self.red_led_pin, GPIO.HIGH)
-        elif distance < 200:
-            GPIO.output(self.yellow_led_pin, GPIO.HIGH)
-        else:
+        if distance >= 34:
             GPIO.output(self.green_led_pin, GPIO.HIGH)
+        elif 19 <= distance <= 33:
+            GPIO.output(self.green_led_pin, GPIO.HIGH)
+            GPIO.output(self.red_led_pin, GPIO.HIGH)
+        elif distance <= 18:
+            GPIO.output(self.red_led_pin, GPIO.HIGH)
 
     def sensor_loop(self):
         while True:
@@ -76,9 +77,7 @@ class UltrasonicSensor:
         loop = asyncio.get_event_loop()
         loop.create_task(self.emit_distance(sio, sid))
         await sio.emit('item', {'item_info': item_data["1"]}, room=sid)
-
         t = threading.Thread(target=self.sensor_loop)
-
         t.start()
 
     def stop_sensors(self):

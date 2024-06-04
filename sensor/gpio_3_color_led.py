@@ -1,5 +1,5 @@
 #gpio_3_color_led.py
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 import threading
 

@@ -1,10 +1,8 @@
+import adafruit_dht
+import threading
+import RPi.GPIO as GPIO
 import time
 import asyncio
-# import board
-# import adafruit_dht
-# import RPi.GPIO as GPIO
-import threading
-
 
 class DTHControlSensor:
     def __init__(self, dht_pin, relay_pin, proper_tmp, proper_humid):
@@ -14,10 +12,9 @@ class DTHControlSensor:
         GPIO.setup(self.relay_pin, GPIO.OUT)
         self.proper_tmp = proper_tmp
         self.proper_humid = proper_humid
-
-
+        self.running = False
     async def read_dht_sensor(self, sio, sid):
-        while True:
+        while self.running:
             try:
                 temperature = self.dht_device.temperature
                 humidity = self.dht_device.humidity
@@ -32,7 +29,7 @@ class DTHControlSensor:
             except Exception as error:
                 self.dht_device.exit()
                 raise error
-            await asyncio.sleep(10)
+            await asyncio.sleep(3)
 
     def check_threshold(self, temperature, humidity):
         if temperature >= self.proper_tmp or humidity >= self.proper_humid:
@@ -42,9 +39,9 @@ class DTHControlSensor:
             GPIO.output(self.relay_pin, GPIO.LOW)
             print("Relay OFF")
 
-    async def control_relay(self, sio, sid):
+    def control_relay(self, sio, sid):
         @sio.on('relay_control')
-        async def handle_relay_control(sid, data):
+        def handle_relay_control(sid, data):
             if data['action'] == 'on':
                 GPIO.output(self.relay_pin, GPIO.HIGH)
                 print("Relay ON")
@@ -53,11 +50,10 @@ class DTHControlSensor:
                 print("Relay OFF")
 
     async def start_sensors(self, sio, sid):
-        tasks = [
-            asyncio.create_task(self.read_dht_sensor(sio, sid)),
-            asyncio.create_task(self.control_relay(sio, sid))
-        ]
-        await asyncio.gather(*tasks)
+        self.running = True
+        sensor_task = asyncio.create_task(self.read_dht_sensor(sio, sid))
+        self.control_relay(sio, sid)
 
     def stop_sensors(self):
+        self.running = False
         GPIO.cleanup()
